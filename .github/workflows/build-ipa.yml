@@ -1,0 +1,86 @@
+name: Build iOS IPA
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build-ios"
+  build-ios:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Setup Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # Install Cordova
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      # Add iOS platform
+      - name: Add iOS platform
+        run: cd cordova_project && cordova platform add ios
+
+      # Build iOS release
+      - name: Build iOS release
+        run: cd cordova_project && cordova build ios --release
+
+      # Import Code-Signing Certificates
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_CERTIFICATE }}
+          p12-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+
+      # Import Provisioning Profile
+      - name: Import Provisioning Profile
+        run: |
+          echo ${{ secrets.IOS_PROVISIONING_PROFILE }} | base64 --decode > profile.mobileprovision
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      # Create export options plist
+      - name: Create export options
+        run: |
+          cat > exportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>ad-hoc</string>
+            <key>teamID</key>
+            <string>${{ secrets.IOS_TEAM_ID }}</string>
+            <key>uploadSymbols</key>
+            <false/>
+          </dict>
+          </plist>
+          EOF
+
+      # Archive and Export IPA
+      - name: Archive and Export IPA
+        run: |
+          cd cordova_project/platforms/ios
+          xcodebuild -workspace "SISPEG Mobile.xcworkspace" -scheme "SISPEG Mobile" -configuration Release -archivePath "SISPEG Mobile.xcarchive" archive
+          xcodebuild -exportArchive -archivePath "SISPEG Mobile.xcarchive" -exportPath "." -exportOptionsPlist ../../../exportOptions.plist
+
+      # Upload IPA as artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sispeg-ios-ipa
+          path: cordova_project/platforms/ios/SISPEG Mobile.ipa
