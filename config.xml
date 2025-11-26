@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.sistemkeuangan.sispeg" version="2.5.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>SISPEG Mobile</name>
+    <description>Sistem Penggajian Karyawan Modern dengan Auto-Update</description>
+    <author email="admin@sistemkeuangan.com">SISPEG Team</author>
+
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="https://sispeg.sistemkeuangan.com/*" />
+
+    <!-- Performance and UI Preferences -->
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value="500" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#1976d2" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/img/logo sma transfaran.png" />
+    <preference name="AndroidWindowSplashScreenBackground" value="#1976d2" />
+    <preference name="AndroidWindowSplashScreenIconBackgroundColor" value="#ffffff" />
+    <!-- Mobile Responsiveness Settings -->
+    <preference name="ViewportWidth" value="device-width" />
+    <preference name="ViewportHeight" value="device-height" />
+    <preference name="ViewportInitialScale" value="1.0" />
+    <preference name="ViewportMaximumScale" value="1.0" />
+    <preference name="ViewportMinimumScale" value="1.0" />
+    <preference name="ViewportUserScalable" value="no" />
+    <preference name="WebViewBounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="SuppressesIncrementalRendering" value="true" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <!-- Production Settings -->
+    <preference name="LoadUrlTimeoutValue" value="20000" />
+    <preference name="deployment-target" value="12.0" />
+    <preference name="target-device" value="universal" />
+    <preference name="BackupWebStorage" value="none" />
+    
+    <platform name="android">
+        <preference name="AndroidLaunchMode" value="singleTop" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/img/logo sma transfaran.png" />
+        <preference name="android-minSdkVersion" value="21" />
+        <preference name="android-targetSdkVersion" value="30" />
+        <preference name="android-compileSdkVersion" value="35" />
+        <icon src="www/img/logo sma transfaran.png" density="ldpi" />
+        <icon src="www/img/logo sma transfaran.png" density="mdpi" />
+        <icon src="www/img/logo sma transfaran.png" density="hdpi" />
+        <icon src="www/img/logo sma transfaran.png" density="xhdpi" />
+        <icon src="www/img/logo sma transfaran.png" density="xxhdpi" />
+        <icon src="www/img/logo sma transfaran.png" density="xxxhdpi" />
+    </platform>
+
+    <platform name="ios">
+        <icon src="www/img/logo sma transfaran.png" width="57" height="57" />
+        <icon src="www/img/logo sma transfaran.png" width="114" height="114" />
+        <icon src="www/img/logo sma transfaran.png" width="72" height="72" />
+        <icon src="www/img/logo sma transfaran.png" width="144" height="144" />
+        <icon src="www/img/logo sma transfaran.png" width="60" height="60" />
+        <icon src="www/img/logo sma transfaran.png" width="120" height="120" />
+        <icon src="www/img/logo sma transfaran.png" width="76" height="76" />
+        <icon src="www/img/logo sma transfaran.png" width="152" height="152" />
+        <icon src="www/img/logo sma transfaran.png" width="167" height="167" />
+        <splash src="www/img/logo sma transfaran.png" width="320" height="480" />
+        <splash src="www/img/logo sma transfaran.png" width="640" height="960" />
+        <splash src="www/img/logo sma transfaran.png" width="768" height="1024" />
+        <splash src="www/img/logo sma transfaran.png" width="1536" height="2048" />
+        <splash src="www/img/logo sma transfaran.png" width="1024" height="768" />
+        <splash src="www/img/logo sma transfaran.png" width="2048" height="1536" />
+        <splash src="www/img/logo sma transfaran.png" width="640" height="1136" />
+        <splash src="www/img/logo sma transfaran.png" width="750" height="1334" />
+        <splash src="www/img/logo sma transfaran.png" width="1242" height="2208" />
+        <splash src="www/img/logo sma transfaran.png" width="1125" height="2436" />
+    </platform>
+</widget>
